@@ -12,25 +12,25 @@ A minimal runnable example is as follows, please don't hesitate to contact me by
 
 ```scala
 implicit val spark: SparkSession = SparkSession.builder().appName("test").master("local[*]").getOrCreate()
-    import spark.implicits._
+import spark.implicits._
 
-    val data = spark.createDataset(Seq(
-      (1.0, 1.0, 1.0),
-      (2.0, 2.0, 1.0),
-      (2.0, 1.0, -1.0),
-      (2.0, 0.0, -1.0),
-      (3.0, 1.0, -1.0)
-    )).toDF("x1", "x2", "y")
-    val testData = spark.createDataset(Seq(
-      (1.0, 1.0, 1.0),
-      (2.0, 2.0, 1.0),
-      (2.0, 1.0, -1.0),
-      (2.0, 0.0, -1.0),
-      (3.0, 1.0, -1.0),
-      (3.0, 0.0, -1.0)
-    )).toDF("x1", "x2", "y")
-    val model = OptimalTreeModel(xCols = Array("x1", "x2"), yCol = "y", treeDepth = 2)
-    model.train(data)
-    model.predict(testData).show()
+val data = spark.createDataset(Seq(
+  (1.0, 1.0, 1.0),
+  (2.0, 2.0, 1.0),
+  (2.0, 1.0, -1.0),
+  (2.0, 0.0, -1.0),
+  (3.0, 1.0, -1.0)
+)).toDF("x1", "x2", "y")
+val testData = spark.createDataset(Seq(
+  (1.0, 1.0, 1.0),
+  (2.0, 2.0, 1.0),
+  (2.0, 1.0, -1.0),
+  (2.0, 0.0, -1.0),
+  (3.0, 1.0, -1.0),
+  (3.0, 0.0, -1.0)
+)).toDF("x1", "x2", "y")
+val model = OptimalTreeModel(xCols = Array("x1", "x2"), yCol = "y", treeDepth = 2)
+model.train(data)
+model.predict(testData).show()
 ``` 
 
